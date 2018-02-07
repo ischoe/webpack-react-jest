@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled, { keyframes } from 'styled-components'
 import image from '../../images/img.png'
 
-const fadeIn = keyframes`
+const scaleIn = keyframes`
   from {
     transform: scale(.25);
     opacity: 0;
@@ -15,7 +15,7 @@ const fadeIn = keyframes`
   }
 `;
 
-const fadeOut = keyframes`
+const scaleOut = keyframes`
   from {
     transform: scale(1);
     opacity: 0;
@@ -27,8 +27,35 @@ const fadeOut = keyframes`
   }
 `;
 
-const fadeInAnimation = `${fadeIn} 0.3s`;
-const fadeOutAnimation = `${fadeOut} 0.3s`;
+const fromLeftIn = keyframes`
+  from {
+    transform: translate(-1000px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translate(0px);
+    opacity: 1;
+  }
+`;
+
+const fromLeftOut = keyframes`
+  from {
+    transform: translate(0px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translate(-1000px);
+    opacity: 1;
+  }
+`;
+
+const scaleInAnimation = `${scaleIn} 0.3s`;
+const scaleOutAnimation = `${scaleOut} 0.3s`;
+
+const fromLeftInAnimation = `${fromLeftIn} 0.5s`;
+const fromLeftOutAnimation = `${fromLeftOut} 0.5s`;
 
 const ProductWrapper = styled('ul')`
   list-style-type: none;
@@ -39,11 +66,12 @@ const ProductWrapper = styled('ul')`
   text-align: center;
   visibility: ${(props) => props.isVisible ? 'visible' : 'hidden'};
   animation: ${(props) => 
-    props.isVisible ? fadeInAnimation : fadeOutAnimation};
-  transition: visibility 0.3s linear;
+    props.isVisible ? fromLeftInAnimation : fromLeftOutAnimation};
+  transition: all 0.3s ease-in-out;
   height: ${(props) => props.isDisplayed ? 'auto' : '0px'};
   opacity: ${(props) => props.isDisplayed ? '1' : '0'};
   overflow: ${(props) => props.isDisplayed ? 'auto' : 'hidden'};
+  position: relative;
 `
 
 const ProductProp = styled('li')`
